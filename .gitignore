@@ -8,5 +8,8 @@ keys.env
 *.apk
 *.aab
 
+# The built app file and its checksum: the app is published as a GitHub Release, never committed to the repo.
+dist/
+
 # Local helper script, not part of the project.
 publish-to-github.ps1

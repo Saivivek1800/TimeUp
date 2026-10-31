@@ -1,0 +1,125 @@
+/* Reclaim download site. No external fonts, scripts or trackers: the page follows the same promise as the app. */
+:root {
+  --teal: #0f766e;
+  --teal-dark: #115e59;
+  --amber: #f59e0b;
+  --mint: #ccfbf1;
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --surface-2: #e8f1fb;
+  --text: #0f172a;
+  --muted: #475569;
+  --border: #dbe4ee;
+  --shadow: 0 6px 24px rgba(15, 118, 110, 0.12);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --teal: #2dd4bf;
+    --teal-dark: #5eead4;
+    --mint: #0b4f49;
+    --bg: #0b1215;
+    --surface: #111a1e;
+    --surface-2: #1b2a33;
+    --text: #e6eef2;
+    --muted: #9fb3bf;
+    --border: #243640;
+    --shadow: 0 6px 24px rgba(0, 0, 0, 0.4);
+  }
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.65;
+}
+
+a { color: var(--teal); }
+a:hover { text-decoration: none; }
+
+:focus-visible { outline: 3px solid var(--amber); outline-offset: 3px; border-radius: 6px; }
+
+.wrap { max-width: 720px; margin: 0 auto; padding: 0 20px; }
+
+header.site { padding: 20px 0 4px; }
+header.site .wrap { display: flex; align-items: center; gap: 12px; }
+header.site .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); font-weight: 700; font-size: 1.25rem; }
+header.site .beta { margin-left: auto; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; background: var(--surface-2); color: var(--text); padding: 4px 10px; border-radius: 999px; }
+
+.logo { width: 38px; height: 38px; flex: none; }
+.logo.big { width: 112px; height: 112px; }
+
+.hero { text-align: center; padding: 28px 0 8px; }
+.hero h1 { font-size: clamp(2.1rem, 7vw, 3rem); line-height: 1.12; margin: 18px 0 12px; letter-spacing: -0.02em; }
+.hero p.lead { font-size: 1.15rem; color: var(--muted); max-width: 34em; margin: 0 auto; }
+
+.download { text-align: center; margin: 28px 0 8px; }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 12px;
+  background: var(--teal); color: #fff; text-decoration: none; font-weight: 700; font-size: 1.15rem;
+  padding: 18px 34px; border-radius: 999px; box-shadow: var(--shadow); min-height: 60px;
+  transition: transform 0.12s ease, background 0.12s ease;
+}
+@media (prefers-color-scheme: dark) { .btn { color: #042f2b; } }
+.btn:hover { background: var(--teal-dark); transform: translateY(-1px); }
+.btn:active { transform: translateY(0); }
+.btn svg { width: 24px; height: 24px; flex: none; }
+
+.btn.secondary { background: var(--surface-2); color: var(--text); box-shadow: none; font-size: 1rem; padding: 14px 26px; min-height: 52px; }
+.btn.secondary:hover { background: var(--border); }
+
+.meta { color: var(--muted); font-size: 0.95rem; margin: 14px 0 0; }
+.meta strong { color: var(--text); }
+
+.promise { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 10px; list-style: none; padding: 0; margin: 18px 0 0; }
+.promise li { background: var(--surface); border: 1px solid var(--border); border-radius: 999px; padding: 6px 14px; font-size: 0.92rem; }
+
+section { margin: 44px 0; }
+section h2 { font-size: 1.5rem; line-height: 1.25; margin: 0 0 14px; letter-spacing: -0.01em; }
+
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 22px; padding: 22px; box-shadow: var(--shadow); }
+
+ol.steps { counter-reset: step; list-style: none; padding: 0; margin: 0; display: grid; gap: 14px; }
+ol.steps > li { counter-increment: step; position: relative; padding-left: 52px; }
+ol.steps > li::before {
+  content: counter(step); position: absolute; left: 0; top: 0; width: 36px; height: 36px; border-radius: 50%;
+  background: var(--teal); color: #fff; font-weight: 700; display: grid; place-items: center;
+}
+@media (prefers-color-scheme: dark) { ol.steps > li::before { color: #042f2b; } }
+/* Only the step's own title sits on its own line, not the bold words inside the tip boxes. */
+ol.steps > li > strong:first-child { display: block; }
+
+.tip { background: var(--surface-2); border-radius: 14px; padding: 12px 16px; margin: 10px 0 0; font-size: 0.97rem; }
+
+ul.checks { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+ul.checks li { padding-left: 30px; position: relative; }
+ul.checks li::before { content: "\2713"; position: absolute; left: 0; top: 0; color: var(--teal); font-weight: 700; }
+
+details { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 12px 16px; margin-top: 18px; text-align: left; }
+details summary { cursor: pointer; font-weight: 600; }
+code, pre { font-family: ui-monospace, SFMono-Regular, Consolas, Menlo, monospace; font-size: 0.88rem; }
+pre { background: var(--surface-2); border-radius: 10px; padding: 12px; overflow-x: auto; margin: 10px 0 0; }
+code.hash { word-break: break-all; }
+
+footer.site { border-top: 1px solid var(--border); margin-top: 56px; padding: 26px 0 40px; color: var(--muted); font-size: 0.95rem; text-align: center; }
+footer.site a { margin: 0 8px; }
+
+/* Privacy page */
+.doc h1 { font-size: 2rem; line-height: 1.2; margin: 28px 0 6px; }
+.doc h2 { font-size: 1.3rem; margin: 30px 0 8px; }
+.doc p, .doc li { color: var(--text); }
+.doc .updated { color: var(--muted); margin: 0 0 20px; }
+.doc ul { padding-left: 22px; }
+.doc table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.98rem; }
+.doc th, .doc td { text-align: left; border-bottom: 1px solid var(--border); padding: 10px 8px; vertical-align: top; }
+.summary { background: var(--surface-2); border-radius: 18px; padding: 16px 20px; margin: 18px 0; font-weight: 500; }
+
+@media (prefers-reduced-motion: reduce) { .btn { transition: none; } }

@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -5,6 +7,12 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
 }
+
+// Release signing. The key and its passwords live OUTSIDE the project (default: ~/reclaim-keys/keystore.properties,
+// or the file named by the RECLAIM_SIGNING environment variable), so they can never be committed by accident.
+// Without that file the release build is simply left unsigned.
+val signingFile = file(System.getenv("RECLAIM_SIGNING") ?: "${System.getProperty("user.home")}/reclaim-keys/keystore.properties")
+val signingProps = Properties().apply { if (signingFile.exists()) signingFile.inputStream().use { load(it) } }
 
 android {
     namespace = "com.vivek.reclaim"
@@ -19,13 +27,27 @@ android {
         minSdk = 26
         targetSdk = 36
         versionCode = 1
-        versionName = "0.1.0"
+        versionName = "0.1.0-beta"
+    }
+
+    signingConfigs {
+        if (signingFile.exists()) {
+            create("release") {
+                storeFile = file(signingProps.getProperty("storeFile"))
+                storePassword = signingProps.getProperty("storePassword")
+                keyAlias = signingProps.getProperty("keyAlias")
+                keyPassword = signingProps.getProperty("keyPassword")
+            }
+        }
     }
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            // Shrink and obfuscate the code and drop unused resources: a smaller, harder-to-copy app.
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            signingConfig = signingConfigs.findByName("release")
         }
     }
 

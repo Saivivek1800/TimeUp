@@ -12,6 +12,7 @@ You choose the apps that steal your time and set **one combined daily limit** fo
 |---|---|
 | [`Reclaim/`](Reclaim) | The Android app (Kotlin, Jetpack Compose, Material 3) |
 | [`designs/`](designs) | Screen designs and the app icon exported from Google Stitch |
+| [`docs/`](docs) | The beta download website (served with GitHub Pages) and the [privacy policy](docs/privacy.html) |
 
 ## Build it
 
