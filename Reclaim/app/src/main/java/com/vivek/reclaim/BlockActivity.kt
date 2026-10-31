@@ -16,6 +16,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.vivek.reclaim.domain.model.ThemeMode
+import com.vivek.reclaim.service.BlockScreenState
 import com.vivek.reclaim.ui.block.BlockScreen
 import com.vivek.reclaim.ui.theme.ReclaimTheme
 import com.vivek.reclaim.ui.theme.ThemeViewModel
@@ -54,6 +55,17 @@ class BlockActivity : ComponentActivity() {
                 BlockScreen(blockedPackage = blockedPackage, onGoHome = ::goHome)
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        BlockScreenState.resumed = true
+        BlockScreenState.onShown?.invoke()
+    }
+
+    override fun onPause() {
+        BlockScreenState.resumed = false
+        super.onPause()
     }
 
     /** singleTask: a second interception while this screen is open arrives here instead of making a new one. */

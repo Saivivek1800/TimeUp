@@ -177,11 +177,14 @@ private fun PermissionsContent(
                         )
                     }
                 },
-                hint = if (!state.accessibilityGranted && Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    "If the switch is greyed out: open App info for Reclaim, tap ⋮, then “Allow restricted settings”."
-                } else {
-                    null
-                },
+                hint = listOfNotNull(
+                    if (!state.accessibilityGranted && Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        "If the switch is greyed out: open App info for Reclaim, tap ⋮, then “Allow restricted settings”."
+                    } else {
+                        null
+                    },
+                    "Keep it on: don’t swipe Reclaim away from recent apps or use “clear all”. Many phones (vivo, iQOO, Xiaomi, Oppo) switch this off when you do. Lock Reclaim in recent apps to protect it.",
+                ).joinToString("\n\n"),
             )
 
             Spacer(Modifier.height(24.dp))

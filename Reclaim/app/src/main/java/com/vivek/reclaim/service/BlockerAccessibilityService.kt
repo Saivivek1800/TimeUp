@@ -3,11 +3,21 @@ package com.vivek.reclaim.service
 import android.accessibilityservice.AccessibilityService
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
+import android.graphics.PixelFormat
+import android.graphics.Typeface
+import android.graphics.drawable.GradientDrawable
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.view.Gravity
+import android.view.View
+import android.view.WindowManager
 import android.view.accessibility.AccessibilityEvent
 import android.view.inputmethod.InputMethodManager
+import android.widget.Button
+import android.widget.LinearLayout
+import android.widget.TextView
 import com.vivek.reclaim.BlockActivity
 import com.vivek.reclaim.WarningActivity
 import com.vivek.reclaim.data.settings.SettingsRepository
@@ -73,12 +83,17 @@ class BlockerAccessibilityService : AccessibilityService() {
     /** The blocked app that is currently in front, so the block screen can name it. */
     @Volatile private var currentBlocked: String? = null
 
+    /** True while our own Block screen is in front. The Block screen reports this itself, so it is always right. */
+    private val blockScreenVisible: Boolean get() = BlockScreenState.resumed
+
     override fun onServiceConnected() {
         super.onServiceConnected()
         val entry = EntryPointAccessors.fromApplication(applicationContext, BlockerEntryPoint::class.java)
         settings = entry.settings()
         usage = entry.usage()
         neutralPackages = neutralPackages + keyboardPackages()
+        // The moment the real Block screen is in front, the backup panel (if any) has done its job.
+        BlockScreenState.onShown = { mainHandler.post { hideOverlay() } }
         scope.launch {
             var lastConfig: Pair<Int, Set<String>>? = null
             settings.settings.collect { s ->
@@ -99,27 +114,41 @@ class BlockerAccessibilityService : AccessibilityService() {
     override fun onAccessibilityEvent(event: AccessibilityEvent?) {
         if (event?.eventType != AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) return
         val pkg = event.packageName?.toString() ?: return
-        // Our own heads-up floats over a blocked app; it must not end the monitoring of that app.
-        if (pkg == packageName && event.className?.toString() == WarningActivity::class.java.name) return
+        val className = event.className?.toString()
+
+        if (pkg == packageName) {
+            // Our own heads-up floats over a blocked app; it must not end the monitoring of that app.
+            if (className == WarningActivity::class.java.name) return
+            if (className == BlockActivity::class.java.name) hideOverlay()
+            // Anything else of ours, including the backup panel's own window, never counts as "leaving".
+            currentBlocked = null
+            stopMonitoring()
+            return
+        }
         if (pkg in neutralPackages) return
 
         // FR-16: never act on our own screens, the launcher, the dialer or settings; only on apps the user chose.
-        if (active && pkg != packageName && pkg in blocked) {
+        if (active && pkg in blocked) {
             currentBlocked = pkg
             if (reachedDate == LocalDate.now(zone())) {
+                Log.d(TAG, "$pkg opened, limit already used up today: blocking at once")
                 redirect() // already used up today: no measuring, no delay
             } else {
+                Log.d(TAG, "$pkg opened, checking today's usage against the ${limitMinutes} min limit")
                 startMonitoring()
             }
         } else {
             currentBlocked = null
             stopMonitoring()
+            hideOverlay() // the user has left the blocked app
         }
     }
 
     override fun onInterrupt() = Unit
 
     override fun onDestroy() {
+        BlockScreenState.onShown = null
+        hideOverlay()
         scope.cancel()
         super.onDestroy()
     }
@@ -130,6 +159,7 @@ class BlockerAccessibilityService : AccessibilityService() {
             while (isActive) {
                 val startedAt = System.nanoTime()
                 val used = usedTodayMillis()
+                Log.d(TAG, "check: used ${used / 60_000L} min of $limitMinutes min across ${blocked.size} apps")
                 if (BlockDecision.isLimitReached(used, limitMinutes)) {
                     reachedDate = LocalDate.now(zone())
                     redirect()
@@ -173,17 +203,134 @@ class BlockerAccessibilityService : AccessibilityService() {
         launch(intent, "heads-up")
     }
 
+    /**
+     * Blocks the app that is in front. First choice: open our reading screen. Some phones (vivo, iQOO, Xiaomi,
+     * Oppo...) refuse to let an app open screens from the background, and say nothing. So if our screen has not
+     * appeared a moment later, we cover the blocked app with our own panel, which needs no permission at all.
+     */
     private fun redirect() {
-        val intent = Intent(this, BlockActivity::class.java)
-            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
-            .putExtra(BlockActivity.EXTRA_BLOCKED_PACKAGE, currentBlocked)
-        launch(intent, "block screen")
+        val intercepted = currentBlocked
+        launch(blockScreenIntent(intercepted), "block screen")
+        mainHandler.postDelayed({
+            if (BlockDecision.needsBackupPanel(blockScreenVisible, stillInBlockedApp = currentBlocked != null)) {
+                Log.w(TAG, "The block screen did not appear (the phone may block background screens): showing the backup panel")
+                showOverlay(intercepted)
+            }
+        }, BlockDecision.BACKUP_PANEL_DELAY_MILLIS)
     }
+
+    private fun blockScreenIntent(blockedPackage: String?) = Intent(this, BlockActivity::class.java)
+        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+        .putExtra(BlockActivity.EXTRA_BLOCKED_PACKAGE, blockedPackage)
 
     private fun launch(intent: Intent, what: String) {
         mainHandler.post {
             runCatching { startActivity(intent) }.onFailure { Log.w(TAG, "Could not open the $what", it) }
         }
+    }
+
+    // ---- The backup panel ----------------------------------------------------------------------------------
+
+    private var overlay: View? = null // only touched on the main thread
+
+    private fun showOverlay(blockedPackage: String?) {
+        if (overlay != null) return
+        val windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        val panel = buildPanel(blockedPackage)
+        val params = WindowManager.LayoutParams(
+            WindowManager.LayoutParams.MATCH_PARENT,
+            WindowManager.LayoutParams.MATCH_PARENT,
+            // Windows of this type may be added by an enabled accessibility service without any extra permission.
+            WindowManager.LayoutParams.TYPE_ACCESSIBILITY_OVERLAY,
+            WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,
+            PixelFormat.OPAQUE,
+        )
+        val added = runCatching { windowManager.addView(panel, params) }
+        if (added.isSuccess) {
+            overlay = panel
+        } else {
+            // Last resort: at least take the person out of the blocked app.
+            Log.w(TAG, "Could not show the backup panel, sending the user to the home screen", added.exceptionOrNull())
+            performGlobalAction(GLOBAL_ACTION_HOME)
+        }
+    }
+
+    private fun hideOverlay() {
+        val view = overlay ?: return
+        overlay = null
+        runCatching { (getSystemService(Context.WINDOW_SERVICE) as WindowManager).removeView(view) }
+    }
+
+    private fun buildPanel(blockedPackage: String?): View {
+        val dark = (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
+        val panelColor = if (dark) 0xFF0B1215.toInt() else 0xFFF8FAFC.toInt()
+        val text = if (dark) 0xFFE6EEF2.toInt() else 0xFF0F172A.toInt()
+        val muted = if (dark) 0xFF9FB3BF.toInt() else 0xFF475569.toInt()
+        val teal = if (dark) 0xFF2DD4BF.toInt() else 0xFF0F766E.toInt()
+        val onTeal = if (dark) 0xFF042F2B.toInt() else 0xFFFFFFFF.toInt()
+        val soft = if (dark) 0xFF1B2A33.toInt() else 0xFFE8F1FB.toInt()
+        val density = resources.displayMetrics.density
+        fun px(dp: Int) = (dp * density).toInt()
+
+        val appName = blockedPackage?.let {
+            runCatching { packageManager.getApplicationInfo(it, 0).loadLabel(packageManager).toString() }.getOrNull()
+        } ?: "This app"
+
+        fun label(content: String, sizeSp: Float, color: Int, bold: Boolean) = TextView(this).apply {
+            this.text = content
+            textSize = sizeSp
+            setTextColor(color)
+            gravity = Gravity.CENTER
+            if (bold) setTypeface(typeface, Typeface.BOLD)
+        }
+
+        fun pill(content: String, fill: Int, color: Int, onClick: () -> Unit) = Button(this).apply {
+            this.text = content
+            isAllCaps = false
+            textSize = 17f
+            setTextColor(color)
+            setTypeface(typeface, Typeface.BOLD)
+            background = GradientDrawable().apply { cornerRadius = px(32).toFloat(); setColor(fill) }
+            stateListAnimator = null
+            setOnClickListener { onClick() }
+        }
+
+        val column = LinearLayout(this).apply {
+            orientation = LinearLayout.VERTICAL
+            gravity = Gravity.CENTER
+            setBackgroundColor(panelColor)
+            setPadding(px(28), px(48), px(28), px(48))
+        }
+        val gap = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+        fun buttonParams() = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, px(58)).apply { topMargin = px(14) }
+
+        column.addView(label("Reclaim shield", 14f, teal, true))
+        column.addView(label("You've reached today's limit", 28f, text, true), gap.apply { topMargin = px(14) })
+        column.addView(
+            label("$appName is paused until tomorrow. Take a breath, or read something worth your time instead.", 17f, muted, false),
+            LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply { topMargin = px(14) },
+        )
+        column.addView(
+            pill("See reading list", teal, onTeal) {
+                launch(blockScreenIntent(blockedPackage), "block screen")
+                // If even that is refused, do not leave the blocked app uncovered: go home instead.
+                mainHandler.postDelayed({
+                    if (!blockScreenVisible) {
+                        performGlobalAction(GLOBAL_ACTION_HOME)
+                        hideOverlay()
+                    }
+                }, BlockDecision.BACKUP_PANEL_DELAY_MILLIS)
+            },
+            buttonParams().apply { topMargin = px(32) },
+        )
+        column.addView(
+            pill("Go to home screen", soft, text) {
+                performGlobalAction(GLOBAL_ACTION_HOME)
+                hideOverlay()
+            },
+            buttonParams(),
+        )
+        return column
     }
 
     private fun zone(): ZoneId = ZoneId.systemDefault()

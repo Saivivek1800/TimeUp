@@ -34,6 +34,8 @@ data class HomeUiState(
     val pickable: List<AppInfo> = emptyList(),
     val streakDays: Int = 0,
     val usageAccessGranted: Boolean = true,
+    /** False means Reclaim's accessibility service is off, so nothing is being blocked. */
+    val accessibilityGranted: Boolean = true,
     val hourOfDay: Int = 9,
 )
 
@@ -65,6 +67,7 @@ class HomeViewModel @Inject constructor(
                         loading = false,
                         limitMinutes = saved.dailyLimitMinutes,
                         usageAccessGranted = false,
+                        accessibilityGranted = permissions.isAccessibilityServiceEnabled(),
                         hourOfDay = now.hour,
                     )
                 }
@@ -95,6 +98,7 @@ class HomeViewModel @Inject constructor(
                 pickable = pickable,
                 streakDays = streak,
                 usageAccessGranted = true,
+                accessibilityGranted = permissions.isAccessibilityServiceEnabled(),
                 hourOfDay = now.hour,
             )
         }
@@ -114,5 +118,9 @@ class HomeViewModel @Inject constructor(
 
     fun openUsageAccessSettings(context: Context) {
         context.startActivity(permissions.usageAccessSettingsIntent())
+    }
+
+    fun openAccessibilitySettings(context: Context) {
+        context.startActivity(permissions.accessibilitySettingsIntent())
     }
 }

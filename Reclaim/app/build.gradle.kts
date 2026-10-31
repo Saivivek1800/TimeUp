@@ -16,18 +16,19 @@ val signingProps = Properties().apply { if (signingFile.exists()) signingFile.in
 
 android {
     namespace = "com.vivek.reclaim"
-    // Supported: Android 8.0 (API 26) up to Android 17 (API 37).
-    //  - minSdk 26: the oldest phone it installs on (Android 8.0).
+    // Supported: Android 7.0 (API 24) up to Android 17 (API 37).
+    //  - minSdk 24: the oldest phone it installs on (Android 7.0). This is the lowest the current libraries allow:
+    //    Navigation needs API 24, and Hilt's navigation helper needs 23. Going lower means older, riskier libraries.
     //  - targetSdk 36: Android 16, which Google Play requires for new apps and updates since 31 Aug 2026.
     //  - compileSdk 37: the toolkit used to build; the latest androidx libraries need a recent one.
     compileSdk = 37
 
     defaultConfig {
         applicationId = "com.vivek.reclaim"
-        minSdk = 26
+        minSdk = 24
         targetSdk = 36
-        versionCode = 1
-        versionName = "0.1.0-beta"
+        versionCode = 2
+        versionName = "0.1.1-beta"
     }
 
     signingConfigs {
@@ -54,6 +55,8 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
+        // Lets Android 7.x use java.time (dates, times, time zones), which Android itself only has from 8.0.
+        isCoreLibraryDesugaringEnabled = true
     }
 
     buildFeatures {
@@ -101,6 +104,8 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.coil.network.okhttp)
     implementation(libs.kotlinx.coroutines.android)
+
+    coreLibraryDesugaring(libs.desugar.jdk.libs)
 
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)

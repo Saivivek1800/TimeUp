@@ -30,6 +30,16 @@ object BlockDecision {
         return (untilNextEvent + 500L).coerceIn(MIN_RECHECK_MILLIS, MAX_RECHECK_MILLIS)
     }
 
+    /** How long to wait for our block screen to appear before covering the blocked app with the backup panel. */
+    const val BACKUP_PANEL_DELAY_MILLIS = 700L
+
+    /**
+     * True when the block screen was asked for but is not in front, while the blocked app still is. Some phones
+     * (vivo, iQOO, Xiaomi, Oppo) silently refuse to open screens from the background, so the app must not be left usable.
+     */
+    fun needsBackupPanel(blockScreenVisible: Boolean, stillInBlockedApp: Boolean): Boolean =
+        !blockScreenVisible && stillInBlockedApp
+
     /** The service only acts once setup is finished and there is something to block. */
     fun isActive(onboardingComplete: Boolean, blockedPackages: Set<String>, limitMinutes: Int): Boolean =
         onboardingComplete && blockedPackages.isNotEmpty() && limitMinutes > 0

@@ -92,6 +92,7 @@ fun HomeScreen(
         state = state,
         loadIcon = viewModel::loadIcon,
         onAllowUsageAccess = { viewModel.openUsageAccessSettings(context) },
+        onAllowAccessibility = { viewModel.openAccessibilitySettings(context) },
         onAddApps = viewModel::addApps,
         modifier = modifier,
     )
@@ -102,6 +103,7 @@ private fun HomeContent(
     state: HomeUiState,
     loadIcon: (String) -> ImageBitmap?,
     onAllowUsageAccess: () -> Unit,
+    onAllowAccessibility: () -> Unit,
     onAddApps: (Set<String>) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -153,8 +155,20 @@ private fun HomeContent(
             )
             Spacer(Modifier.height(20.dp))
 
+            if (!state.accessibilityGranted) {
+                PermissionOffCard(
+                    title = "Blocking is off",
+                    message = "Reclaim can’t stop your apps right now. Phones switch this off when Reclaim is swiped away from recent apps or force-stopped. Turn it back on, then lock Reclaim in your recent apps so it stays on.",
+                    onAllow = onAllowAccessibility,
+                )
+                Spacer(Modifier.height(16.dp))
+            }
             if (!state.usageAccessGranted) {
-                UsageAccessOffCard(onAllow = onAllowUsageAccess)
+                PermissionOffCard(
+                    title = "Usage Access is off",
+                    message = "Reclaim can’t see your screen time until you turn it back on.",
+                    onAllow = onAllowUsageAccess,
+                )
                 Spacer(Modifier.height(16.dp))
             }
 
@@ -376,7 +390,7 @@ private fun BreakdownSection(state: HomeUiState, loadIcon: (String) -> ImageBitm
 }
 
 @Composable
-private fun UsageAccessOffCard(onAllow: () -> Unit) {
+private fun PermissionOffCard(title: String, message: String, onAllow: () -> Unit) {
     Surface(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(24.dp),
@@ -391,14 +405,14 @@ private fun UsageAccessOffCard(onAllow: () -> Unit) {
                 )
                 Spacer(Modifier.width(10.dp))
                 Text(
-                    "Usage Access is off",
+                    title,
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.onTertiaryContainer,
                 )
             }
             Spacer(Modifier.height(6.dp))
             Text(
-                "Reclaim can’t see your screen time until you turn it back on.",
+                message,
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onTertiaryContainer,
             )
@@ -422,6 +436,7 @@ private fun HomePreview() {
             ),
             loadIcon = { null },
             onAllowUsageAccess = {},
+            onAllowAccessibility = {},
             onAddApps = {},
         )
     }

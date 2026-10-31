@@ -28,7 +28,9 @@ The APK appears in `Reclaim/app/build/outputs/apk/debug/`. Run the unit tests wi
 
 ## Supported Android versions
 
-Android 8.0 (API 26) up to Android 17. Built for Android 16 (API 36).
+Android 7.0 (API 24) up to Android 17. Built for Android 16 (API 36).
+
+Android 7.0 is the lowest the current libraries allow. Android 6 and older would need older, riskier versions of the app's core libraries, so they are not supported.
 
 ## Permissions
 
@@ -36,6 +38,8 @@ Reclaim asks for two special permissions, and explains why on screen before you 
 
 - **Usage Access**, to add up how long you spend in the apps you chose.
 - **Accessibility Service**, to notice when one of those apps opens. It reads only the app's package name, never your screen, messages or text.
+
+**Keeping blocking on.** Android switches an app's accessibility service **off** if the app is force-stopped. On vivo, iQOO, Xiaomi and Oppo phones, swiping Reclaim away from recent apps or using "clear all" counts as a force-stop. Lock Reclaim in the recent-apps screen so it is skipped. If blocking is ever off, the Home screen shows a "Blocking is off" warning with a button to turn it back on.
 
 ## Roadmap: test first, then the Play Store
 

@@ -60,6 +60,22 @@ class BlockDecisionTest {
     }
 
     @Test
+    fun backupPanel_isNeededWhenTheBlockScreenNeverAppearedAndTheAppIsStillInFront() {
+        assertTrue(BlockDecision.needsBackupPanel(blockScreenVisible = false, stillInBlockedApp = true))
+    }
+
+    @Test
+    fun backupPanel_isNotNeededWhenTheBlockScreenAppeared() {
+        assertFalse(BlockDecision.needsBackupPanel(blockScreenVisible = true, stillInBlockedApp = false))
+        assertFalse(BlockDecision.needsBackupPanel(blockScreenVisible = true, stillInBlockedApp = true))
+    }
+
+    @Test
+    fun backupPanel_isNotNeededOnceTheUserAlreadyLeftTheBlockedApp() {
+        assertFalse(BlockDecision.needsBackupPanel(blockScreenVisible = false, stillInBlockedApp = false))
+    }
+
+    @Test
     fun serviceIsOnlyActiveAfterSetupWithSomethingToBlock() {
         assertTrue(BlockDecision.isActive(true, setOf("a"), 60))
         assertFalse(BlockDecision.isActive(false, setOf("a"), 60))
