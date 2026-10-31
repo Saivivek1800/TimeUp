@@ -86,6 +86,8 @@ section { margin: 44px 0; }
 section h2 { font-size: 1.5rem; line-height: 1.25; margin: 0 0 14px; letter-spacing: -0.01em; }
 
 .card { background: var(--surface); border: 1px solid var(--border); border-radius: 22px; padding: 22px; box-shadow: var(--shadow); }
+.card > p:first-child { margin-top: 0; }
+.card > p:last-child { margin-bottom: 0; }
 
 ol.steps { counter-reset: step; list-style: none; padding: 0; margin: 0; display: grid; gap: 14px; }
 ol.steps > li { counter-increment: step; position: relative; padding-left: 52px; }
