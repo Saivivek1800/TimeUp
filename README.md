@@ -36,6 +36,21 @@ Reclaim asks for two special permissions, and explains why on screen before you 
 - **Usage Access**, to add up how long you spend in the apps you chose.
 - **Accessibility Service**, to notice when one of those apps opens. It reads only the app's package name, never your screen, messages or text.
 
-## Status
+## Roadmap: test first, then the Play Store
 
-Work in progress, not yet on the Play Store.
+Reclaim is **free**. There is no payment and no account, and it keeps no data off your phone. The plan for releasing it:
+
+1. **Beta download (planned).** A simple website with a **Download** button will offer the Android app file (`.apk`). Anyone can install it, try it, and send feedback. The link will be added here when the page is live.
+2. **Improve it.** Feedback from testers decides what gets fixed or changed.
+3. **Google Play Store (planned).** Once the beta has settled, the app will be published on Google Play.
+
+Right now it is **work in progress**: not yet on the website and not yet on the Play Store.
+
+### What to expect when you install the beta
+
+Because the beta is installed from a website and not from the Play Store, Android will ask for a few extra steps:
+
+- Allow your browser to **install unknown apps**. Play Protect may show an "unknown developer" warning, so choose "Install anyway".
+- On Android 13 and newer, the accessibility switch may be greyed out. Open **App info for Reclaim**, tap the **⋮** menu, choose **Allow restricted settings**, then turn on Reclaim in Accessibility settings.
+
+The Play Store version will not need these steps.
