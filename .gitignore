@@ -13,3 +13,8 @@ dist/
 
 # Local helper script, not part of the project.
 publish-to-github.ps1
+
+# Vercel's local link and token files: never commit these.
+.vercel/
+.env.local
+.env*.local

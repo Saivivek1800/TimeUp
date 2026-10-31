@@ -10,6 +10,7 @@
   <meta property="og:description" content="A free Android app with one daily limit for your social apps, and a calm reading list when time is up. Beta download.">
   <meta property="og:type" content="website">
   <link rel="stylesheet" href="style.css">
+  <script src="site.js" defer></script>
 </head>
 <body>
 
@@ -51,8 +52,31 @@
     <p class="lead">Set <strong>one daily limit</strong> for the social apps that steal your time. When it is used up, Reclaim shows you something worth reading instead.</p>
   </div>
 
-  <div class="download">
-    <a class="btn" id="download" href="https://github.com/Saivivek1800/TimeUp/releases/latest/download/Reclaim-beta.apk" download>
+  <!-- Shown by site.js only when the visitor is NOT on an Android phone. Hidden by default, so Android sees none of this. -->
+  <section class="notice" id="notice-desktop" hidden aria-live="polite" aria-labelledby="notice-desktop-title">
+    <h2 id="notice-desktop-title">Reclaim is an Android app</h2>
+    <p>You are on a computer, and this app can only be installed on an <strong>Android phone</strong>. Open this page on your phone to download it:</p>
+    <p class="address">reclaim-android.vercel.app</p>
+    <p class="actions">
+      <a class="btn secondary" href="mailto:?subject=Reclaim%20for%20Android&amp;body=Open%20this%20on%20your%20Android%20phone%20to%20download%20Reclaim%3A%20https%3A%2F%2Freclaim-android.vercel.app">Email me the link</a>
+      <button class="btn secondary" id="copy-link" type="button" hidden>Copy link</button>
+    </p>
+    <p class="small">On an Android phone and still seeing this? Turn off <em>Desktop site</em> in your browser's menu. Want the file to move to a phone yourself? <a href="Reclaim-beta.apk" download="Reclaim-beta.apk">Download the .apk anyway</a>.</p>
+  </section>
+
+  <section class="notice" id="notice-ios" hidden aria-live="polite" aria-labelledby="notice-ios-title">
+    <h2 id="notice-ios-title">Reclaim is not on iPhone yet</h2>
+    <p>Reclaim works only on <strong>Android</strong> phones. There is no iPhone or iPad version, because the app relies on Android features that iPhones do not have.</p>
+    <p>Have an Android phone? Open this page there to download it:</p>
+    <p class="address">reclaim-android.vercel.app</p>
+    <p class="actions">
+      <a class="btn secondary" href="mailto:?subject=Reclaim%20for%20Android&amp;body=Open%20this%20on%20your%20Android%20phone%20to%20download%20Reclaim%3A%20https%3A%2F%2Freclaim-android.vercel.app">Email me the link</a>
+      <a class="btn secondary" href="https://github.com/Saivivek1800/TimeUp/issues/new">Ask for an iPhone version</a>
+    </p>
+  </section>
+
+  <div class="download" data-android-only>
+    <a class="btn" id="download" href="Reclaim-beta.apk" download="Reclaim-beta.apk">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M5 21h14"/></svg>
       Download for Android
     </a>
@@ -72,7 +96,7 @@
     </details>
   </div>
 
-  <section aria-labelledby="install">
+  <section aria-labelledby="install" data-android-only>
     <h2 id="install">How to install</h2>
     <div class="card">
       <ol class="steps">

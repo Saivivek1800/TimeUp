@@ -41,11 +41,11 @@ Reclaim asks for two special permissions, and explains why on screen before you 
 
 Reclaim is **free**. There is no payment and no account, and it keeps no data off your phone. The plan for releasing it:
 
-1. **Beta download (planned).** A simple website with a **Download** button will offer the Android app file (`.apk`). Anyone can install it, try it, and send feedback. The link will be added here when the page is live.
+1. **Beta download (live): [reclaim-android.vercel.app](https://reclaim-android.vercel.app).** A simple website with a **Download** button offers the Android app file (`.apk`). Open it **on an Android phone** to install, try it, and send feedback. On a computer or an iPhone the page explains that Reclaim is Android-only.
 2. **Improve it.** Feedback from testers decides what gets fixed or changed.
 3. **Google Play Store (planned).** Once the beta has settled, the app will be published on Google Play.
 
-Right now it is **work in progress**: not yet on the website and not yet on the Play Store.
+Right now it is a **beta**: available from the website above, and not yet on the Play Store.
 
 ### What to expect when you install the beta
 
