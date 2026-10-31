@@ -1,0 +1,12 @@
+# Safety net for this PARENT folder. The app itself lives in Reclaim/ (that is the folder to turn into a repo).
+# If anyone ever runs "git init" here by mistake, these stay out of it.
+keys.env
+.mcp.json
+*.jks
+*.keystore
+*.pepk
+*.apk
+*.aab
+
+# Local helper script, not part of the project.
+publish-to-github.ps1

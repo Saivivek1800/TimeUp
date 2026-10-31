@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Roboto+Flex:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100%;min-height:100%;margin:0;padding:0;background-color:#f8f9ff;}body{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "surface-container-high": "#dce9ff", "tertiary-fixed-dim": "#6bd8cb", "tertiary-fixed": "#89f5e7", "tertiary-container": "#00776d", "surface-container-lowest": "#ffffff", "primary-fixed": "#9cf2e8", "background": "#f8f9ff", "surface-container-highest": "#d3e4fe", "inverse-surface": "#213145", "surface-bright": "#f8f9ff", "surface-tint": "#006a63", "on-secondary-container": "#684000", "on-tertiary-fixed-variant": "#005049", "on-primary-container": "#a3faef", "primary-fixed-dim": "#80d5cb", "secondary-container": "#fea619", "on-surface-variant": "#3e4947", "on-tertiary": "#ffffff", "tertiary": "#005c54", "secondary": "#855300", "primary-container": "#0f766e", "surface-variant": "#d3e4fe", "on-primary": "#ffffff", "on-tertiary-container": "#91fdef", "on-primary-fixed": "#00201d", "surface-dim": "#cbdbf5", "primary": "#005c55", "error-container": "#ffdad6", "on-surface": "#0b1c30", "secondary-fixed-dim": "#ffb95f", "on-background": "#0b1c30", "secondary-fixed": "#ffddb8", "outline": "#6e7977", "inverse-on-surface": "#eaf1ff", "on-secondary": "#ffffff", "inverse-primary": "#80d5cb", "on-error-container": "#93000a", "on-primary-fixed-variant": "#00504a", "surface-container": "#e5eeff", "on-error": "#ffffff", "outline-variant": "#bdc9c6", "surface": "#f8f9ff", "on-secondary-fixed": "#2a1700", "on-secondary-fixed-variant": "#653e00", "error": "#ba1a1a", "on-tertiary-fixed": "#00201d", "surface-container-low": "#eff4ff" }, "borderRadius": { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" }, "spacing": { "margin-tablet": "1.5rem", "space-md": "1rem", "space-sm": "0.5rem", "margin": "1rem", "gutter": "1rem", "space-xl": "2rem", "space-xs": "0.25rem", "gutter-sm": "0.75rem", "space-lg": "1.5rem" }, "fontFamily": { "label-lg": ["Inter"], "label-md": ["Inter"], "body-md": ["Inter"], "body-lg": ["Inter"], "title-md": ["Inter"], "headline-lg": ["Roboto Flex"], "body-sm": ["Inter"], "headline-sm": ["Roboto Flex"], "display-timer-mobile": ["Roboto Flex"], "headline-md": ["Roboto Flex"], "label-sm": ["Inter"], "display-lg": ["Roboto Flex"], "display-timer": ["Roboto Flex"] }, "fontSize": { "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "title-md": ["16px", { "lineHeight": "24px", "fontWeight": "600" }], "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "headline-sm": ["20px", { "lineHeight": "26px", "fontWeight": "600" }], "display-timer-mobile": ["38px", { "lineHeight": "44px", "letterSpacing": "-0.01em", "fontWeight": "500" }], "headline-md": ["26px", { "lineHeight": "32px", "fontWeight": "600" }], "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.03em", "fontWeight": "500" }], "display-lg": ["56px", { "lineHeight": "64px", "letterSpacing": "-0.02em", "fontWeight": "600" }], "display-timer": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.01em", "fontWeight": "500" }] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface text-on-surface antialiased flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 bg-surface/90 backdrop-blur-xl pt-safe shadow-[0_1px_8px_rgba(0,0,0,0.03)]"><div class="h-6 px-4 flex items-center justify-between text-on-surface select-none"><span class="font-label-sm text-label-sm tracking-tight font-medium">9:41</span><div class="flex items-center gap-1.5 text-on-surface"><span class="material-symbols-outlined text-[15px] leading-none">signal_cellular_alt</span><span class="material-symbols-outlined text-[15px] leading-none">wifi</span><span class="material-symbols-outlined text-[15px] leading-none">battery_full</span></div></div><div class="h-14 px-margin flex items-center justify-between"><div class="flex items-center gap-space-sm"><button aria-label="Go back" class="w-11 h-11 -ml-2 flex items-center justify-center rounded-full text-on-surface active:bg-surface-container-high/40 transition-colors" onclick="history.back()" type="button"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><img alt="Focus Hour Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1XGa03rlOTsAr7OssWBG3jUGRNMgLztLaSQ_WWc-hSLtQieHDvdq9fo83zKcVYVNU4AKN57DVyQ6_3AwdOb287C-6sw3oxfpZmQhzfvf8AJ1hb9iVQj2xG0TMei_FgCgb5NSkkfQp-sww2urZy3VvQVe9Pcn-DyJYXbtVA-w6ZlINGb2YHLN7_Q6cLpTuNwDTpDlSuUqRSuAv6Qf6ZvNlcdUbeJWj2Pm75m_hp--L8"/><h1 class="font-title-md text-title-md text-on-surface tracking-tight font-semibold truncate">App Blocklist Setup</h1></div><div class="flex items-center"><button aria-label="User Profile" class="w-11 h-11 flex items-center justify-center rounded-full active:opacity-85 transition-opacity" type="button"><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-2 ring-primary-fixed" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBaExQVDKCDWp8FVTUccudui3QonfZQQNHyzCoj7Jjfx4fdzQcg2Wp592pAtmk-l-CMjZi6K7Wc6aRJOGQjBNCCn09PGj35CfStwKUWMd5wiHcRS4iBiOI6YGdveAO_nIdrj8_5wRMnvGDfC_lL1qXQDO0MWe7zcwLoXzQRs-RWDLTPBvq4KhjaZiDQNRy18H1UkGjMjX4J6_UdW6qquz7LKapseYK_TE3_2UotDeI"/></button></div></div></header><main class="flex-1 flex flex-col relative w-full pt-20 pb-safe bg-surface"><div class="flex flex-col w-full px-margin pb-24">
+<!-- Progress Header -->
+<div class="flex flex-col gap-space-xs mt-2 mb-space-md">
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-md text-label-md text-primary font-semibold tracking-wide uppercase flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-secondary-container"></span>
+        Step 3 of 4 â€¢ Distraction Shield
+      </span>
+<span class="font-label-md text-label-md text-on-surface-variant font-medium">75% Complete</span>
+</div>
+<!-- Progress Bar -->
+<div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full transition-all duration-500" style="width: 75%;"></div>
+</div>
+</div>
+<!-- Heading & Subtitle -->
+<div class="flex flex-col gap-1 mb-space-md">
+<h2 class="font-headline-md text-headline-md text-on-surface tracking-tight">
+      Which apps steal your time?
+    </h2>
+<p class="font-body-md text-body-md text-on-surface-variant">
+      Select apps that pull you in. We will monitor these toward your daily budget.
+    </p>
+</div>
+<!-- Selection Controls / Summary Pill -->
+<div class="flex items-center justify-between py-2 mb-2">
+<div class="flex items-center gap-2 bg-surface-container px-3 py-1.5 rounded-full">
+<span class="material-symbols-outlined text-primary text-[18px]" style="font-variation-settings: 'FILL' 1;">shield</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold" id="selected-summary-text">
+        5 Apps Selected
+      </span>
+</div>
+<button class="font-label-lg text-label-lg text-primary hover:text-tertiary font-semibold active:opacity-75 transition-opacity px-2 py-1" id="select-all-btn" type="button">
+      Deselect All
+    </button>
+</div>
+<!-- App Blocklist Stack -->
+<div class="flex flex-col gap-2.5" id="app-list">
+<!-- 1. Instagram -->
+<div class="app-item group bg-surface-container-lowest p-3.5 rounded-[20px] shadow-sm flex items-center justify-between transition-transform active:scale-[0.99]" data-name="Instagram" data-selected="true">
+<div class="flex items-center gap-3.5 min-w-0">
+<div class="w-12 h-12 rounded-[14px] flex items-center justify-center shrink-0 shadow-sm overflow-hidden bg-gradient-to-tr from-[#f09433] via-[#e6683c] via-[#dc2743] via-[#cc2366] to-[#bc1888]">
+<svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<rect height="20" rx="5" ry="5" width="20" x="2" y="2"></rect>
+<path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+<line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+</svg>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-md text-title-md text-on-surface truncate">Instagram</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px] text-secondary">schedule</span>
+            Daily average: 2h 15m
+          </span>
+</div>
+</div>
+<button aria-checked="true" class="toggle-btn relative inline-flex h-8 w-[52px] shrink-0 cursor-pointer rounded-full bg-primary-container p-1 transition-colors duration-200 ease-in-out focus:outline-none" role="switch" type="button">
+<span class="toggle-thumb pointer-events-none inline-flex h-6 w-6 transform translate-x-5 items-center justify-center rounded-full bg-surface-container-lowest shadow-md transition duration-200 ease-in-out">
+<span class="material-symbols-outlined text-primary text-[14px] font-bold">check</span>
+</span>
+</button>
+</div>
+<!-- 2. YouTube -->
+<div class="app-item group bg-surface-container-lowest p-3.5 rounded-[20px] shadow-sm flex items-center justify-between transition-transform active:scale-[0.99]" data-name="YouTube" data-selected="true">
+<div class="flex items-center gap-3.5 min-w-0">
+<div class="w-12 h-12 rounded-[14px] bg-[#FF0000] flex items-center justify-center shrink-0 shadow-sm">
+<svg class="w-6 h-6 fill-white" viewbox="0 0 24 24">
+<path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"></path>
+</svg>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-md text-title-md text-on-surface truncate">YouTube</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px] text-secondary">schedule</span>
+            Daily average: 1h 40m
+          </span>
+</div>
+</div>
+<button aria-checked="true" class="toggle-btn relative inline-flex h-8 w-[52px] shrink-0 cursor-pointer rounded-full bg-primary-container p-1 transition-colors duration-200 ease-in-out focus:outline-none" role="switch" type="button">
+<span class="toggle-thumb pointer-events-none inline-flex h-6 w-6 transform translate-x-5 items-center justify-center rounded-full bg-surface-container-lowest shadow-md transition duration-200 ease-in-out">
+<span class="material-symbols-outlined text-primary text-[14px] font-bold">check</span>
+</span>
+</button>
+</div>
+<!-- 3. X (Twitter) -->
+<div class="app-item group bg-surface-container-lowest p-3.5 rounded-[20px] shadow-sm flex items-center justify-between transition-transform active:scale-[0.99]" data-name="X" data-selected="true">
+<div class="flex items-center gap-3.5 min-w-0">
+<div class="w-12 h-12 rounded-[14px] bg-black flex items-center justify-center shrink-0 shadow-sm">
+<svg class="w-5 h-5 fill-white" viewbox="0 0 24 24">
+<path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+</svg>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-md text-title-md text-on-surface truncate">X</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px] text-secondary">schedule</span>
+            Daily average: 55m
+          </span>
+</div>
+</div>
+<button aria-checked="true" class="toggle-btn relative inline-flex h-8 w-[52px] shrink-0 cursor-pointer rounded-full bg-primary-container p-1 transition-colors duration-200 ease-in-out focus:outline-none" role="switch" type="button">
+<span class="toggle-thumb pointer-events-none inline-flex h-6 w-6 transform translate-x-5 items-center justify-center rounded-full bg-surface-container-lowest shadow-md transition duration-200 ease-in-out">
+<span class="material-symbols-outlined text-primary text-[14px] font-bold">check</span>
+</span>
+</button>
+</div>
+<!-- 4. TikTok -->
+<div class="app-item group bg-surface-container-lowest p-3.5 rounded-[20px] shadow-sm flex items-center justify-between transition-transform active:scale-[0.99]" data-name="TikTok" data-selected="true">
+<div class="flex items-center gap-3.5 min-w-0">
+<div class="w-12 h-12 rounded-[14px] bg-[#010101] flex items-center justify-center shrink-0 shadow-sm relative overflow-hidden">
+<svg class="w-6 h-6 fill-white" viewbox="0 0 24 24">
+<path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.298-.002.595.042.88.13V9.4a6.33 6.33 0 0 0-1-.08A6.34 6.34 0 0 0 3 15.66a6.34 6.34 0 0 0 10.82 4.49 6.27 6.27 0 0 0 1.87-4.49V8.69a8.18 8.18 0 0 0 4.9 1.63v-3.63z"></path>
+</svg>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-md text-title-md text-on-surface truncate">TikTok</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px] text-secondary">schedule</span>
+            Daily average: 1h 10m
+          </span>
+</div>
+</div>
+<button aria-checked="true" class="toggle-btn relative inline-flex h-8 w-[52px] shrink-0 cursor-pointer rounded-full bg-primary-container p-1 transition-colors duration-200 ease-in-out focus:outline-none" role="switch" type="button">
+<span class="toggle-thumb pointer-events-none inline-flex h-6 w-6 transform translate-x-5 items-center justify-center rounded-full bg-surface-container-lowest shadow-md transition duration-200 ease-in-out">
+<span class="material-symbols-outlined text-primary text-[14px] font-bold">check</span>
+</span>
+</button>
+</div>
+<!-- 5. Reddit -->
+<div class="app-item group bg-surface-container-lowest p-3.5 rounded-[20px] shadow-sm flex items-center justify-between transition-transform active:scale-[0.99]" data-name="Reddit" data-selected="true">
+<div class="flex items-center gap-3.5 min-w-0">
+<div class="w-12 h-12 rounded-[14px] bg-[#FF4500] flex items-center justify-center shrink-0 shadow-sm">
+<svg class="w-6 h-6 fill-white" viewbox="0 0 24 24">
+<path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.197-2.512-.73a.326.326 0 0 0-.232-.095z"></path>
+</svg>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-md text-title-md text-on-surface truncate">Reddit</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px] text-secondary">schedule</span>
+            Daily average: 40m
+          </span>
+</div>
+</div>
+<button aria-checked="true" class="toggle-btn relative inline-flex h-8 w-[52px] shrink-0 cursor-pointer rounded-full bg-primary-container p-1 transition-colors duration-200 ease-in-out focus:outline-none" role="switch" type="button">
+<span class="toggle-thumb pointer-events-none inline-flex h-6 w-6 transform translate-x-5 items-center justify-center rounded-full bg-surface-container-lowest shadow-md transition duration-200 ease-in-out">
+<span class="material-symbols-outlined text-primary text-[14px] font-bold">check</span>
+</span>
+</button>
+</div>
+<!-- 6. Snapchat -->
+<div class="app-item group bg-surface-container-lowest p-3.5 rounded-[20px] shadow-sm flex items-center justify-between transition-transform active:scale-[0.99]" data-name="Snapchat" data-selected="false">
+<div class="flex items-center gap-3.5 min-w-0">
+<div class="w-12 h-12 rounded-[14px] bg-[#FFFC00] flex items-center justify-center shrink-0 shadow-sm">
+<svg class="w-6 h-6 fill-black" viewbox="0 0 24 24">
+<path d="M12.065 1.5c-4.108 0-6.793 2.946-6.793 6.096 0 1.284.453 2.668.795 3.513.113.284.148.497.025.688-.12.185-.36.26-.644.33-1.042.257-2.062.802-2.062 1.954 0 1.09.897 1.704 2.21 1.91.436.07.616.27.608.625-.01.442-.25 1.258-1.127 1.838-.415.275-.548.59-.444.887.126.357.653.618 1.487.485 1.29-.205 2.162-.757 2.766-.583.568.163 1.34 1.71 3.167 1.71 1.83 0 2.603-1.547 3.17-1.71.603-.174 1.474.378 2.765.583.834.133 1.36-.128 1.487-.485.104-.297-.03-.612-.444-.887-.878-.58-1.117-1.396-1.127-1.838-.008-.355.172-.555.608-.625 1.313-.206 2.21-.82 2.21-1.91 0-1.152-1.02-1.697-2.062-1.954-.284-.07-.524-.145-.644-.33-.123-.191-.088-.404.025-.688.342-.845.795-2.229.795-3.513 0-3.15-2.685-6.096-6.793-6.096z"></path>
+</svg>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-md text-title-md text-on-surface truncate">Snapchat</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px] text-on-surface-variant">schedule</span>
+            Daily average: 25m
+          </span>
+</div>
+</div>
+<button aria-checked="false" class="toggle-btn relative inline-flex h-8 w-[52px] shrink-0 cursor-pointer rounded-full bg-surface-container-high p-1 transition-colors duration-200 ease-in-out focus:outline-none" role="switch" type="button">
+<span class="toggle-thumb pointer-events-none inline-flex h-6 w-6 transform translate-x-0 items-center justify-center rounded-full bg-on-surface-variant/40 shadow-sm transition duration-200 ease-in-out">
+<span class="material-symbols-outlined text-transparent text-[14px]">check</span>
+</span>
+</button>
+</div>
+<!-- 7. Facebook -->
+<div class="app-item group bg-surface-container-lowest p-3.5 rounded-[20px] shadow-sm flex items-center justify-between transition-transform active:scale-[0.99]" data-name="Facebook" data-selected="false">
+<div class="flex items-center gap-3.5 min-w-0">
+<div class="w-12 h-12 rounded-[14px] bg-[#1877F2] flex items-center justify-center shrink-0 shadow-sm">
+<svg class="w-6 h-6 fill-white" viewbox="0 0 24 24">
+<path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"></path>
+</svg>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-md text-title-md text-on-surface truncate">Facebook</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px] text-on-surface-variant">schedule</span>
+            Daily average: 20m
+          </span>
+</div>
+</div>
+<button aria-checked="false" class="toggle-btn relative inline-flex h-8 w-[52px] shrink-0 cursor-pointer rounded-full bg-surface-container-high p-1 transition-colors duration-200 ease-in-out focus:outline-none" role="switch" type="button">
+<span class="toggle-thumb pointer-events-none inline-flex h-6 w-6 transform translate-x-0 items-center justify-center rounded-full bg-on-surface-variant/40 shadow-sm transition duration-200 ease-in-out">
+<span class="material-symbols-outlined text-transparent text-[14px]">check</span>
+</span>
+</button>
+</div>
+<!-- 8. WhatsApp -->
+<div class="app-item group bg-surface-container-lowest p-3.5 rounded-[20px] shadow-sm flex items-center justify-between transition-transform active:scale-[0.99]" data-name="WhatsApp" data-selected="false">
+<div class="flex items-center gap-3.5 min-w-0">
+<div class="w-12 h-12 rounded-[14px] bg-[#25D366] flex items-center justify-center shrink-0 shadow-sm">
+<svg class="w-6 h-6 fill-white" viewbox="0 0 24 24">
+<path d="M12.031 2C6.516 2 2.023 6.49 2.023 12.003c0 1.942.553 3.754 1.517 5.292L2 22l4.856-1.503a9.98 9.98 0 0 0 5.175 1.455c5.515 0 10.008-4.49 10.008-10.004C22.039 6.49 17.546 2 12.031 2zm5.787 14.25c-.24.674-1.2 1.246-1.785 1.282-.57.036-1.194.135-3.896-.983-3.23-1.336-5.321-4.63-5.483-4.846-.162-.216-1.3-1.734-1.3-3.308 0-1.574.823-2.35 1.117-2.67.294-.32.643-.401.86-.401.216 0 .432.004.62.013.204.01.478-.077.747.57.275.66.938 2.29.102 2.498.084.208.14.453.003.725-.138.272-.21.442-.416.685-.207.242-.435.541-.621.727-.207.207-.423.431-.182.846.24.415 1.07 1.764 2.298 2.859 1.58 1.408 2.913 1.844 3.327 2.051.415.207.66.173.906-.112.247-.286 1.054-1.229 1.336-1.65.283-.422.565-.353.95-.211.385.141 2.441 1.151 2.861 1.36.42.208.7.311.803.486.103.175.103 1.014-.137 1.688z"></path>
+</svg>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-md text-title-md text-on-surface truncate">WhatsApp <span class="font-label-sm text-label-sm text-on-surface-variant font-normal">(optional)</span></span>
+<span class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px] text-on-surface-variant">chat</span>
+            Messaging
+          </span>
+</div>
+</div>
+<button aria-checked="false" class="toggle-btn relative inline-flex h-8 w-[52px] shrink-0 cursor-pointer rounded-full bg-surface-container-high p-1 transition-colors duration-200 ease-in-out focus:outline-none" role="switch" type="button">
+<span class="toggle-thumb pointer-events-none inline-flex h-6 w-6 transform translate-x-0 items-center justify-center rounded-full bg-on-surface-variant/40 shadow-sm transition duration-200 ease-in-out">
+<span class="material-symbols-outlined text-transparent text-[14px]">check</span>
+</span>
+</button>
+</div>
+</div>
+<!-- Reclaimed time highlight insight badge -->
+<div class="mt-space-md p-4 rounded-[20px] bg-surface-container-low flex items-center gap-3.5">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed flex items-center justify-center shrink-0 text-on-secondary-fixed">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">bolt</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Estimated reclaimed time</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant" id="reclaimed-time-text">
+        Blocking these 5 apps could save you up to <strong>6h 40m</strong> daily.
+      </span>
+</div>
+</div>
+<!-- Sticky Bottom CTAs container -->
+<div class="fixed bottom-0 left-0 right-0 p-margin bg-gradient-to-t from-surface via-surface/95 to-transparent pb-safe pointer-events-auto z-40">
+<button class="w-full h-14 bg-primary text-on-primary rounded-full font-label-lg text-label-lg shadow-md hover:shadow-lg active:scale-[0.98] transition-all flex items-center justify-center gap-2" id="next-step-btn" type="button">
+<span>Next</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<script>
+  (function initAppSelection() {
+    const appItems = document.querySelectorAll('.app-item');
+    const selectAllBtn = document.getElementById('select-all-btn');
+    const summaryText = document.getElementById('selected-summary-text');
+    const nextBtn = document.getElementById('next-step-btn');
+    const reclaimedText = document.getElementById('reclaimed-time-text');
+
+    function updateState() {
+      const selectedCount = document.querySelectorAll('.app-item[data-selected="true"]').length;
+      
+      summaryText.textContent = `${selectedCount} App${selectedCount === 1 ? '' : 's'} Selected`;
+      selectAllBtn.textContent = selectedCount === appItems.length ? 'Deselect All' : 'Select All';
+
+      if (selectedCount === 0) {
+        nextBtn.innerHTML = `<span>Skip for now</span><span class="material-symbols-outlined text-[18px]">arrow_forward</span>`;
+        reclaimedText.innerHTML = `Select at least 1 app to estimate potential focus time recovered.`;
+      } else {
+        nextBtn.innerHTML = `<span>Next</span><span class="material-symbols-outlined text-[18px]">arrow_forward</span>`;
+        reclaimedText.innerHTML = `Blocking these ${selectedCount} apps helps reclaim your attention for what matters most.`;
+      }
+    }
+
+    function toggleApp(card) {
+      const isSelected = card.getAttribute('data-selected') === 'true';
+      const toggleBtn = card.querySelector('.toggle-btn');
+      const thumb = card.querySelector('.toggle-thumb');
+      const icon = thumb.querySelector('.material-symbols-outlined');
+
+      if (isSelected) {
+        // Turn OFF
+        card.setAttribute('data-selected', 'false');
+        toggleBtn.setAttribute('aria-checked', 'false');
+        toggleBtn.classList.remove('bg-primary-container');
+        toggleBtn.classList.add('bg-surface-container-high');
+        thumb.classList.remove('translate-x-5', 'bg-surface-container-lowest', 'shadow-md');
+        thumb.classList.add('translate-x-0', 'bg-on-surface-variant/40', 'shadow-sm');
+        icon.classList.remove('text-primary');
+        icon.classList.add('text-transparent');
+      } else {
+        // Turn ON
+        card.setAttribute('data-selected', 'true');
+        toggleBtn.setAttribute('aria-checked', 'true');
+        toggleBtn.classList.remove('bg-surface-container-high');
+        toggleBtn.classList.add('bg-primary-container');
+        thumb.classList.remove('translate-x-0', 'bg-on-surface-variant/40', 'shadow-sm');
+        thumb.classList.add('translate-x-5', 'bg-surface-container-lowest', 'shadow-md');
+        icon.classList.remove('text-transparent');
+        icon.classList.add('text-primary');
+      }
+      updateState();
+    }
+
+    appItems.forEach(card => {
+      card.addEventListener('click', (e) => {
+        toggleApp(card);
+      });
+    });
+
+    selectAllBtn.addEventListener('click', () => {
+      const currentlyAll = Array.from(appItems).every(c => c.getAttribute('data-selected') === 'true');
+      appItems.forEach(card => {
+        const isSelected = card.getAttribute('data-selected') === 'true';
+        if (currentlyAll && isSelected) {
+          toggleApp(card);
+        } else if (!currentlyAll && !isSelected) {
+          toggleApp(card);
+        }
+      });
+    });
+
+    updateState();
+  })();
+</script></main><footer class="fixed bottom-0 w-full z-40 pb-safe pointer-events-none"><div class="w-full flex items-center justify-center pb-2"><div class="w-32 h-1 bg-on-surface-variant/30 rounded-full"></div></div></footer></body></html>

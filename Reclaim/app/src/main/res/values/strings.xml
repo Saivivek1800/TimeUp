@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Reclaim</string>
+    <string name="accessibility_service_description">Reclaim only reads the name of the app that is open, so it can show your reading list once your daily limit is reached. It never reads your screen, messages or text.</string>
+</resources>

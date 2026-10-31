@@ -1,0 +1,19 @@
+*.iml
+.gradle/
+build/
+local.properties
+.idea/
+captures/
+.externalNativeBuild/
+.cxx/
+*.apk
+*.aab
+keys.env
+.mcp.json
+
+# Release signing: never commit these. Losing them means you can no longer update the app.
+*.jks
+*.keystore
+*.pepk
+keystore.properties
+signing.properties

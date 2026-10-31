@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  "Focus Hour Clean Light App Icon", centerpiece, rebuilt from the design's SVG (designs/icons/clean-light.svg).
+  The artwork is drawn in the design's 512-unit space around (0,0) and scaled by 0.20 into the 66dp adaptive-icon
+  safe zone, so no launcher mask can clip the ring.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <group
+        android:pivotX="0"
+        android:pivotY="0"
+        android:scaleX="0.2"
+        android:scaleY="0.2"
+        android:translateX="54"
+        android:translateY="54">
+
+        <!-- Outer orbit, full circle, pale mint -->
+        <path
+            android:pathData="M-150,0 A150,150 0 1,1 150,0 A150,150 0 1,1 -150,0"
+            android:strokeColor="#CCFBF1"
+            android:strokeLineCap="round"
+            android:strokeWidth="12" />
+
+        <!-- Progress arc, 137.5 degrees clockwise from 3 o'clock -->
+        <path
+            android:pathData="M150,0 A150,150 0 0,1 -110.59,101.34"
+            android:strokeColor="#0F766E"
+            android:strokeLineCap="round"
+            android:strokeWidth="12" />
+
+        <!-- Inner teal disc -->
+        <path android:pathData="M-118,0 A118,118 0 1,1 118,0 A118,118 0 1,1 -118,0">
+            <aapt:attr name="android:fillColor">
+                <gradient
+                    android:startX="-118"
+                    android:startY="-118"
+                    android:endX="118"
+                    android:endY="118"
+                    android:type="linear">
+                    <item android:color="#0F766E" android:offset="0" />
+                    <item android:color="#115E59" android:offset="1" />
+                </gradient>
+            </aapt:attr>
+        </path>
+
+        <!-- Hourglass outline, white -->
+        <path
+            android:pathData="M-44,-56 L44,-56 C36,-18 14,-8 0,0 C-14,-8 -36,-18 -44,-56 Z"
+            android:strokeColor="#FFFFFF"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round"
+            android:strokeWidth="8" />
+        <path
+            android:pathData="M-44,56 L44,56 C36,18 14,8 0,0 C-14,8 -36,18 -44,56 Z"
+            android:strokeColor="#FFFFFF"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round"
+            android:strokeWidth="8" />
+
+        <!-- Top and bottom bars -->
+        <path
+            android:pathData="M-48,-56 L48,-56"
+            android:strokeColor="#FFFFFF"
+            android:strokeLineCap="round"
+            android:strokeWidth="8" />
+        <path
+            android:pathData="M-48,56 L48,56"
+            android:strokeColor="#FFFFFF"
+            android:strokeLineCap="round"
+            android:strokeWidth="8" />
+
+        <!-- Pivot dot -->
+        <path
+            android:fillColor="#FBBF24"
+            android:pathData="M-4.5,0 A4.5,4.5 0 1,1 4.5,0 A4.5,4.5 0 1,1 -4.5,0" />
+
+        <!-- Reclaimed-time sand, amber -->
+        <path android:pathData="M-30,48 C-22,28 -8,20 0,16 C8,20 22,28 30,48 Z">
+            <aapt:attr name="android:fillColor">
+                <gradient
+                    android:startX="-30"
+                    android:startY="16"
+                    android:endX="30"
+                    android:endY="48"
+                    android:type="linear">
+                    <item android:color="#FBBF24" android:offset="0" />
+                    <item android:color="#D97706" android:offset="1" />
+                </gradient>
+            </aapt:attr>
+        </path>
+
+        <!-- Sprout of intentional growth -->
+        <path
+            android:fillColor="#5EEAD4"
+            android:pathData="M0,28 C-4,20 -10,22 -8,16 C-5,16 -1,22 0,28 Z" />
+        <path
+            android:fillColor="#2DD4BF"
+            android:pathData="M0,28 C4,20 10,22 8,16 C5,16 1,22 0,28 Z" />
+
+        <!-- Amber node on the orbit -->
+        <path
+            android:fillColor="#F59E0B"
+            android:pathData="M98,-106 A8,8 0 1,1 114,-106 A8,8 0 1,1 98,-106" />
+    </group>
+</vector>

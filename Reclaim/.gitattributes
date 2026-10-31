@@ -1,0 +1,11 @@
+# Normalise line endings so the project builds the same on Windows, macOS and Linux.
+* text=auto
+
+# The Gradle launcher scripts must keep their native endings or they stop working.
+gradlew text eol=lf
+*.bat text eol=crlf
+
+# Binary files git should never try to merge or diff as text.
+*.jar binary
+*.png binary
+*.webp binary
