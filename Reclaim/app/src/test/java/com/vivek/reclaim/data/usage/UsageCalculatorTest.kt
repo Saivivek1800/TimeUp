@@ -19,6 +19,18 @@ class UsageCalculatorTest {
         UsageCalculator.foregroundMillis(events, packages, windowStart = 0L, windowEnd = end * minute)
 
     @Test
+    fun frontPackage_isTheLastResumedAppNotYetPaused() {
+        assertEquals(yt, UsageCalculator.frontPackage(listOf(ev(1, insta, RESUME), ev(2, insta, PAUSE), ev(2, yt, RESUME))))
+        assertEquals(insta, UsageCalculator.frontPackage(listOf(ev(1, insta, RESUME), ev(2, yt, RESUME), ev(3, yt, PAUSE))))
+    }
+
+    @Test
+    fun frontPackage_isNullAfterScreenOffOrWithNoEvents() {
+        assertNull(UsageCalculator.frontPackage(emptyList()))
+        assertNull(UsageCalculator.frontPackage(listOf(ev(1, insta, RESUME), ev(2, null, SCREEN_OFF))))
+    }
+
+    @Test
     fun singleSession_isPauseMinusResume() {
         val result = calc(listOf(ev(10, insta, RESUME), ev(25, insta, PAUSE)))
         assertEquals(15 * minute, result[insta])

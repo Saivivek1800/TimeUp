@@ -138,9 +138,10 @@ class BlockerAccessibilityService : AccessibilityService() {
                 startMonitoring()
             }
         } else {
+            // Another window appeared. That may be a pop-up or system dialog over the blocked app (which is still in
+            // front), so the loop is not stopped here: it checks what is really in front each time round.
             currentBlocked = null
-            stopMonitoring()
-            hideOverlay() // the user has left the blocked app
+            hideOverlay()
         }
     }
 
@@ -156,9 +157,24 @@ class BlockerAccessibilityService : AccessibilityService() {
     private fun startMonitoring() {
         if (monitorJob?.isActive == true) return
         monitorJob = scope.launch {
+            var misses = 0
             while (isActive) {
                 val startedAt = System.nanoTime()
-                val used = usedTodayMillis()
+                val (used, front) = usedAndFrontToday()
+                // Window events are not trusted to say where the user is: a pop-up or system window can hide the
+                // fact that the blocked app is still in front. The usage log says what is really on screen.
+                if (front != null && front in blocked) {
+                    misses = 0
+                    currentBlocked = front
+                } else if (front != null && front in neutralPackages) {
+                    // The shade or keyboard is over the app: keep watching.
+                } else if (++misses >= 2) {
+                    Log.d(TAG, "check: $front is in front now, not a blocked app: stopping")
+                    return@launch
+                } else {
+                    delay(BlockDecision.MIN_RECHECK_MILLIS)
+                    continue
+                }
                 Log.d(TAG, "check: used ${used / 60_000L} min of $limitMinutes min across ${blocked.size} apps")
                 if (BlockDecision.isLimitReached(used, limitMinutes)) {
                     reachedDate = LocalDate.now(zone())
@@ -181,10 +197,10 @@ class BlockerAccessibilityService : AccessibilityService() {
     }
 
     /** FR-7: foreground time in the blocked apps from local midnight to now. */
-    private suspend fun usedTodayMillis(): Long {
+    private suspend fun usedAndFrontToday(): Pair<Long, String?> {
         val zone = zone()
         val midnight = LocalDate.now(zone).atStartOfDay(zone).toInstant().toEpochMilli()
-        return usage.foregroundMillis(blocked, midnight, System.currentTimeMillis()).values.sum()
+        return usage.usedAndFront(blocked, midnight)
     }
 
     private fun warnedToday(): Boolean = warnedDate == LocalDate.now(zone()).toString()

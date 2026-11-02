@@ -9,6 +9,23 @@ data class UsageEventLite(val timestamp: Long, val packageName: String?, val kin
 object UsageCalculator {
 
     /**
+     * The app whose screen is in front at the end of [events] (sorted by time), or null if the screen is off or
+     * nothing is known. The most recently resumed screen that has not paused since wins.
+     */
+    fun frontPackage(events: List<UsageEventLite>): String? {
+        val resumed = LinkedHashSet<String>()
+        for (event in events) {
+            val pkg = event.packageName
+            when (event.kind) {
+                UsageEventKind.RESUME -> if (pkg != null) { resumed.remove(pkg); resumed.add(pkg) }
+                UsageEventKind.PAUSE -> if (pkg != null) resumed.remove(pkg)
+                UsageEventKind.SCREEN_OFF -> resumed.clear()
+            }
+        }
+        return resumed.lastOrNull()
+    }
+
+    /**
      * Foreground milliseconds per package between [windowStart] and [windowEnd], for [packages] only.
      * [events] must be sorted by time.
      *

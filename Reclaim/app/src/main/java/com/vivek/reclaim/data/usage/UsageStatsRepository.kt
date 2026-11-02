@@ -20,24 +20,37 @@ class UsageStatsRepository @Inject constructor(
     suspend fun foregroundMillis(packages: Set<String>, start: Long, end: Long): Map<String, Long> =
         withContext(Dispatchers.IO) {
             if (packages.isEmpty() || end <= start) return@withContext emptyMap()
-            val manager = context.getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
-            val events = manager.queryEvents(start, end)
-            val lite = ArrayList<UsageEventLite>()
-            val event = UsageEvents.Event()
-            while (events.hasNextEvent()) {
-                events.getNextEvent(event)
-                val kind = when (event.eventType) {
-                    // Same values as ACTIVITY_RESUMED / ACTIVITY_PAUSED on newer Android versions.
-                    @Suppress("DEPRECATION") UsageEvents.Event.MOVE_TO_FOREGROUND -> UsageEventKind.RESUME
-                    @Suppress("DEPRECATION") UsageEvents.Event.MOVE_TO_BACKGROUND -> UsageEventKind.PAUSE
-                    UsageEvents.Event.SCREEN_NON_INTERACTIVE,
-                    UsageEvents.Event.DEVICE_SHUTDOWN -> UsageEventKind.SCREEN_OFF
-                    else -> null
-                } ?: continue
-                lite += UsageEventLite(event.timeStamp, event.packageName, kind)
-            }
-            UsageCalculator.foregroundMillis(lite, packages, start, end)
+            UsageCalculator.foregroundMillis(readEvents(start, end), packages, start, end)
         }
+
+    /** Foreground time in [packages] from [start] until now, and the app that is in front right now (null if none). */
+    suspend fun usedAndFront(packages: Set<String>, start: Long): Pair<Long, String?> =
+        withContext(Dispatchers.IO) {
+            val end = System.currentTimeMillis()
+            if (packages.isEmpty() || end <= start) return@withContext 0L to null
+            val events = readEvents(start, end)
+            UsageCalculator.foregroundMillis(events, packages, start, end).values.sum() to UsageCalculator.frontPackage(events)
+        }
+
+    private fun readEvents(start: Long, end: Long): List<UsageEventLite> {
+        val manager = context.getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
+        val events = manager.queryEvents(start, end)
+        val lite = ArrayList<UsageEventLite>()
+        val event = UsageEvents.Event()
+        while (events.hasNextEvent()) {
+            events.getNextEvent(event)
+            val kind = when (event.eventType) {
+                // Same values as ACTIVITY_RESUMED / ACTIVITY_PAUSED on newer Android versions.
+                @Suppress("DEPRECATION") UsageEvents.Event.MOVE_TO_FOREGROUND -> UsageEventKind.RESUME
+                @Suppress("DEPRECATION") UsageEvents.Event.MOVE_TO_BACKGROUND -> UsageEventKind.PAUSE
+                UsageEvents.Event.SCREEN_NON_INTERACTIVE,
+                UsageEvents.Event.DEVICE_SHUTDOWN -> UsageEventKind.SCREEN_OFF
+                else -> null
+            } ?: continue
+            lite += UsageEventLite(event.timeStamp, event.packageName, kind)
+        }
+        return lite
+    }
 
     /**
      * Average minutes per day across [packages] over the [days] complete days before today, or null if
